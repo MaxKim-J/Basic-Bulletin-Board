@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container">
+    <div class="row">
+        <div class="col-sm-8">
+            <h2>게시물 모아 보기</h2>
+        </div>
+         <div class="col-sm-8">
+            <h3>"{{ tags.name }}" 태그</h3>
+        </div><br/>
+         <div class="col-sm-8">
+            {% for article in tag_article %}
+            <div><a href = "{% url 'article:detail' article.pk %}">
+                {{ article.title }}</a>
+            </div>
+        {% endfor %}
+        </div>
+    </div>
+</div>
+
+
+{% endblock %}
