@@ -12,13 +12,13 @@ def list_article(request):
 
 def create_article(request):
     if request.method == 'POST':
-        title = request.POST.get('title', None) # 없으면 논을 준다
+        title = request.POST.get('title', None)
         content = request.POST.get('content', None)
         if title and content:
             ap = Article.objects.create(title=title, content=content)
-        # 객체할당- 오브젝트는 만들었으나(쿼리셋) 디비에는 넣지 않겠다
             return redirect(reverse('article:detail', kwargs={'pk': ap.id}))
-    return render(request, 'article/create_article.html')
+    else:
+        return render(request, 'article/create_article.html')
 
 
 def detail_article(request, pk):
@@ -43,3 +43,36 @@ def tags_article(request, pk):
     tag_article = Article.objects.filter(tag__name__exact=tags)
     context = {'tag_article': tag_article, 'tags': tags}
     return render(request, 'article/tag_article.html', context)
+
+
+def update_article(request, pk):
+    article = Article.objects.get(id=pk)
+
+    if request.method == 'POST':
+        title = request.POST.get('title', None)
+        content = request.POST.get('content', None)
+        if title and content:
+            article.title = title
+            article.content = content
+            article.save()
+            return redirect(resolve_url('article:detail', pk))
+
+    else:
+        return render(request, 'article/update_article.html', {'article': article})
+
+
+def delete_article(request, pk):
+    article = Article.objects.get(pk=pk)
+    comments = article.comment_set.all()
+    tags = article.tag_set.all()
+    confirm = "진짜 삭제할거임? 삭제 한번 더 누르면 삭제해주지"
+    data = {'article': article, 'comments': comments, 'tags': tags, 'confirm': confirm}
+
+    if article.delo == 1:
+        article.delo = 2
+        article.save()
+        return render(request, 'article/detail_article.html', data)
+
+    elif article.delo == 2:
+        article.delete()
+        return redirect('article:list')
