@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+
+{% block title %}login.html{% endblock %}
+
+{% block content %}
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-10">
+                <h3>로그인을 해주셈여!</h3>
+                <form action="#" method="POST">
+                    {% csrf_token %}
+                    <p>아이디와 비번을 입력해라 임마!</p>
+
+                    {% if form.errors %} {# 폼에 입력된 내용에 에러 #}
+                        <p>미안하지만 그딴 아이디는 없어</p>
+                    {% endif %}
+
+                    <fieldset> {# 필드셋 태그는 폼에서 비슷한 요소를 묶어주는 역할을 한다 #}
+                        <div>   {# authentification form이라는 폼 클래스는 장고에서 제공해주는 기본 로그인용 폼 #}
+                            {{ form.username.label_tag }} {{ form.username }} {# 레이블: 폼 객체(모델폼)의 유저네임 필드에 해당되는 위젯 #}
+                        </div>
+                        <div>
+                            {{ form.password.label_tag }} {{ form.password }} {# 레이블: 폼 객체의 패스워드 필드에 해당되는 위젯 #}
+                        </div>
+                    </fieldset>
+
+                    <div>
+                        <input type="submit" value="Log In"/> <!--로그인 버튼-->
+                        <input type="hidden" name="next" value="{{ next }}"/> <!--폼의 넥스트 항목에 넥스트 변수값 할당 -->
+                        <!--이 문장에 의해 login()뷰가 post요청을 처리한 후 로그인이 성공한 경우에 next로 지정된 url로 이동 -->
+                        <!-- 히든이라 안보임 -->
+                        <!-- url의 쿼리 문자열로 지정. 소스코드 봐야될듯-->
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+{% endblock %}

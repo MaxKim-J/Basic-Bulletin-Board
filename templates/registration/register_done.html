@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+
+{% block title %}register_Done.html{% endblock %}
+
+{% block content %}
+
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-10">
+                <div>
+                    <h1>계정이 만들어 졌다!!!!!!!!</h1>
+
+                    <p>축하한다 임마! 계정을 만들었구나!</p>
+
+                    <p><a href="{% url 'login' %}">이 계정으로 로그인을 하러 가야징</a></p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

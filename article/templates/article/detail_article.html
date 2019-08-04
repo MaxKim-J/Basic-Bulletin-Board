@@ -17,11 +17,6 @@
                         <h5>{{ article.content }}</h5>
                     </div>
                     <br/>
-                    <div>
-                        {% if confirm %}
-                            {{ confirm }}
-                        {% endif %}
-                    </div>
                     <div class="col-sm-8">
                         <span>
                             태그:
@@ -31,6 +26,11 @@
                                 <a href="{% url 'article:tags' tag.id %}">{{ tag.name }}</a>
                             {% endfor %}
                         </span>
+                        <div>
+                        {% if confirm %}
+                            <h5>{{ confirm }}</h5>
+                        {% endif %}
+                        </div>
                     </div>
                     <div class="col-sm-8" style="margin: 50px 0px">
                         <form action="#" method="POST">

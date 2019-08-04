@@ -1,3 +1,4 @@
+from django.contrib.auth.models import User
 from django.db import models
 from django_prac4_0730front.models import TimeStampModel
 
@@ -5,7 +6,7 @@ from django_prac4_0730front.models import TimeStampModel
 class Article(TimeStampModel):
     title = models.CharField(max_length=100, verbose_name='제목')
     content = models.TextField(verbose_name='내용')
-    delo = models.IntegerField()
+    delo = models.IntegerField(default=1)
 
     def __str__(self):
         return self.title

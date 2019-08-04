@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+
+{% block title %}logged_out.html{% endblock %}
+
+{% block content %}
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-10">
+                <h1>로그아웃이다 이거야</h1>
+
+                <p>접속해줘서 고마웠다 시바 다음에 다시보자</p>
+
+                <p><a href = "{% url 'login' %}">다시 로그인 해버리긔~</a></p>
+            </div>
+         </div>
+    </div>
+{% endblock %}

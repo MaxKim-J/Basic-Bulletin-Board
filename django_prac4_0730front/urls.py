@@ -16,7 +16,17 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 
+from article import views
+from article.views import HomeView, UserCreateView, UserCreationDoneTV
+
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', include('article.urls')),
+    path('', HomeView.as_view(), name='home'),
+    path('article/', include('article.urls')),
+    path('profile/', views.profile, name='profile'),
+
+    # 인증 유알엘
+    path('accounts/', include('django.contrib.auth.urls')),
+    path('accounts/register', UserCreateView.as_view(), name='register'),
+    path('accounts/register/done', UserCreationDoneTV.as_view(), name='register_done'),
 ]

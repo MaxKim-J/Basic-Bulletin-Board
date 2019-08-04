@@ -6,16 +6,61 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
-    <script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"
+            integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
 
 </head>
 <body>
-     <nav>
-        <div class="nav-wrapper">
-          <a href="{% url 'article:list' %}" class="brand-logo center">Max`s Blog</a>
-        </div>
-    </nav>
-    {% block content %}
-    {% endblock %}
+
+<header>
+    <div>
+        {% if user.is_active %}
+            {# 사용자의 로그인 여부 확인 - 로그인하면 is active 함수는 True를 반환한다 #}
+            {# user객체는 장고의 기본 템플릿 변수이므로, 모든 템플릿 파일에서 사용 가능하다 #}
+            <nav>
+                <div class="nav-wrapper">
+                    <a href="{% url 'article:list' %}" class="brand-logo center">Max`s Blog</a>
+                </div>
+            </nav>
+            <header>
+                <div class="container" style="background-color: whitesmoke">
+                    <div class="row">
+                        <div class="col-sm-10" style="margin:3px">
+                            <p>안녕, <strong>{% firstof user.get_short_name user.get_username %}!</strong></p>
+                            <p>MAX의 블로그에 온걸 환영해!</p>
+                            <a href="{% url 'password_change' %} ">비밀번호 바꾸기</a>&nbsp;&nbsp;&nbsp;&nbsp;
+                            <a href="{% url 'logout' %}">로그아웃</a>&nbsp;&nbsp;&nbsp;&nbsp;
+                            <a href="{% url 'profile' %}">프로필 보기</a>
+                        </div>
+                    </div>
+                </div>
+            </header>
+        {% else %}
+            {# 로그인이 되지 않은 경우 #}
+            <nav>
+                <div class="nav-wrapper">
+                    <a href="{% url 'home' %}" class="brand-logo center">Max`s Blog</a>
+                </div>
+            </nav>
+            <header>
+                <div class="container" style="background-color: antiquewhite">
+                    <div class="row">
+                        <div class="col-sm-10">
+                            <p>안녕, 낯선 자!</p>
+                            <p>MAX의 블로그에 온걸 환영해!</p>
+                            <a href="{% url 'login' %} ">로그인</a>
+                            <a href="{% url 'register' %}">회원가입</a>
+                        </div>
+                    </div>
+                </div>
+            </header>
+        {% endif %}
+    </div>
+</header>
+
+{% block content %}
+{% endblock %}
+
+
 </body>
 </html>
